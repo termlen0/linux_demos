@@ -5,17 +5,21 @@
   become: yes
 
   tasks:
-    - name: Display uptime before reboot
+    - name: Collect uptime before reboot
       command: uptime
       register: output
       
     - debug:
-        var: output
+        var: output.stdout
       
     - name: Reboot each server
       reboot:
         test_command: uptime
       register: output
 
+    - name: Collect uptime before reboot
+      command: uptime
+      register: output
+      
     - debug:
-        var: output
+        var: output.stdout
