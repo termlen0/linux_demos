@@ -8,3 +8,7 @@
     - name: Reboot each server
       reboot:
         test_command: whoami
+      register: output
+
+    - debug:
+        var: output
