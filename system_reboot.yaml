@@ -5,9 +5,16 @@
   become: yes
 
   tasks:
+    - name: Display uptime before reboot
+      command: uptime
+      register: output
+      
+    - debug:
+        var: output
+      
     - name: Reboot each server
       reboot:
-        test_command: whoami
+        test_command: uptime
       register: output
 
     - debug:
