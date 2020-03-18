@@ -1,0 +1,10 @@
+---
+- name: DEMONSTRATE THE REBOOT OF A SYSTEM
+  hosts: all
+  gather_facts: no
+  become: yes
+
+  tasks:
+    - name: Reboot each server
+      reboot:
+        test_command: whoami
