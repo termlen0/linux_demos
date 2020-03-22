@@ -17,7 +17,7 @@
         test_command: uptime
       register: output
 
-    - name: Collect uptime before reboot
+    - name: Collect uptime after reboot
       command: uptime
       register: output
       
