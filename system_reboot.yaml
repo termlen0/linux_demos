@@ -8,7 +8,7 @@
 
     - name: Patch the server
       debug:
-        msg: "Patching completed for {{inventory_host}}"
+        msg: "Patching completed for {{inventory_hostname}}"
         
     - name: Collect uptime before reboot
       command: uptime
