@@ -5,6 +5,11 @@
   become: yes
 
   tasks:
+
+    - name: Patch the server
+      debug:
+        msg: "Patching completed for {{inventory_host}}"
+        
     - name: Collect uptime before reboot
       command: uptime
       register: output
