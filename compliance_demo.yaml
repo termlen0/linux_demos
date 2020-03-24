@@ -1,0 +1,41 @@
+---
+# This demo checks to see if certain files exist on the end host. If not it
+# will flag an alert for an approver. Once approved, the file will be
+# redeployed to the endpoint
+- name: SEED 2 SERVERS
+  hosts: node1, node3
+  gather_facts: no
+  become: yes
+  tags: seed
+  tasks:
+    - name: Ship compliance file to demo hosts
+      file:
+        path: /etc/compliance.cfg
+        state: touch
+
+
+- name: ENSURE COMPLIANCE FILES EXISTS
+  hosts: web
+  gather_facts: no
+  become: yes
+  tags: check-compliance
+
+  tasks:
+    - name: Validate whether compliance file exists
+      file:
+        path: /etc/compliance.cfg
+        state: file
+        
+  
+- name: ADD COMPLIANCE FILES
+  hosts: web
+  gather_facts: no
+  become: yes
+  tags: add-compliance
+
+  tasks:
+    - name: Ship compliance file to demo hosts
+      file:
+        path: /etc/compliance.cfg
+        state: touch
+  
