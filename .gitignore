@@ -1,5 +1,5 @@
 *.retry
+/roles/*
 /sample_facts.yaml
 !/roles/build_report
 !/roles/requirements.yml
-/roles/*
