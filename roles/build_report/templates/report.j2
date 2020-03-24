@@ -89,8 +89,8 @@ $("document").ready(function(){
               </thead>
               <tbody>
                 <tr>
-                  <td>{{hostvars[server][ansible_memtotal_mb]}}</td>
-                  <td>{{hostvars[server][ansible_memfree_mb] |default("none")}}</td>
+                  <td>{{hostvars[server]['ansible_memtotal_mb']}}</td>
+                  <td>{{hostvars[server]['ansible_memfree_mb'] |default("none")}}</td>
                 </tr>
               </tbody>
             </table>
@@ -114,9 +114,9 @@ $("document").ready(function(){
               </thead>
               <tbody>
                 <tr>
-                  <td>{{hostvars[server][ansible_processor_cores]}}</td>
-                  <td>{{hostvars[server][ansible_processor_threads_per_core] |default("none")}}</td>
-                  <td>{{hostvars[ansible_processor_vcpus]}}</td>
+                  <td>{{hostvars[server]['ansible_processor_cores']}}</td>
+                  <td>{{hostvars[server]['ansible_processor_threads_per_core'] |default("none")}}</td>
+                  <td>{{hostvars[server]['ansible_processor_vcpus']}}</td>
                 </tr>
               </tbody>
             </table>
