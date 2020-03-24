@@ -38,4 +38,18 @@
       file:
         path: /etc/compliance.cfg
         state: touch
-  
+
+
+- name: RESET COMPLIANCE
+  hosts: node2
+  gather_facts: no
+  become: yes
+  tags: reset
+
+  tasks:
+
+    - name: Ship compliance file to demo hosts
+      file:
+        path: /etc/compliance.cfg
+        state: absent
+
