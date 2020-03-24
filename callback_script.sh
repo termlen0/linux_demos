@@ -1,0 +1,1 @@
+curl -k -f -i -H 'Content-Type:application/json' -XPOST -d '{"host_config_key": "ac1b7a12-254b-4cb0-88a7-cececfc59594"}' https://student1.linux-automation.rhdemo.io:443/api/v2/job_templates/19/callback/
