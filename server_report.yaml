@@ -8,12 +8,12 @@
       debug:
         msg: "Facts gathered for {{ inventory_hostname }}"
 
-# - name: build report with facts
-#   hosts: localhost
-#   gather_facts: no
+- name: build report with facts
+  hosts: localhost
+  gather_facts: no
 
-#   tasks:
+  tasks:
 
-#     - name: build a report
-#       include_role:
-#         name: build_report
+    - name: build a report
+      include_role:
+        name: build_report
