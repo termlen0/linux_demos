@@ -1,0 +1,29 @@
+---
+- name: DISABLE SE LINUX
+  hosts: all
+  gather_facts: no
+  become: yes
+  tags: disable-selinux
+  tasks:
+
+    - name: Ensure dependency is installed
+      package:
+        name:
+          - libselinux-python
+
+    - name: Disable SELinux
+      selinux:
+        state: disabled
+
+
+- name: ENABLE SE LINUX
+  hosts: all
+  gather_facts: no
+  become: yes
+  tags: enable-selinux
+  tasks:
+
+    - name: Disable SELinux
+      selinux:
+        state: disabled
+
