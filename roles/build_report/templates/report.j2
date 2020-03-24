@@ -35,15 +35,14 @@ $("document").ready(function(){
             <th>Disk</th>
             <th>Memory</th>
             <th>Processors</th>
-            <th>SE Linux</th>
         </tr>
     </thead>
     <tbody>
       {% for server in groups['web']|sort %}
         
         <tr>
-          <td><p class="hostname">{{hostvars[server]['ansible_hostname']}}</p>
-          <td>Disk details</td>
+          <td><p class="hostname">{{hostvars[server]['ansible_hostname']}}</p></td>
+          <td>Disk details
 
           <!–– INTERNAL TABLE FOR DISKS --!>
           <div class="expand">
@@ -72,8 +71,8 @@ $("document").ready(function(){
             </table>
           </div>
           <!–– END INTERNAL TABLE FOR DISKS --!>
-
-          <td>Memory details</td>
+          </td>
+          <td>Memory details
 
           <!–– INTERNAL TABLE FOR MEMORY --!>
           <div class="expand">
@@ -96,8 +95,8 @@ $("document").ready(function(){
             </table>
           </div>
           <!–– END INTERNAL TABLE FOR MEMORY --!>
-
-          <td>Processor Details </td>
+          </td>
+          <td>Processor Details 
 
           <!–– INTERNAL TABLE FOR PROCESSORS --!>
           <div class="expand">
@@ -122,6 +121,7 @@ $("document").ready(function(){
             </table>
           </div>
           <!–– END INTERNAL TABLE FOR PROCESSORS --!>
+          </td>
         {% endfor %}
         
     </tbody>
