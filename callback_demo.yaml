@@ -1,6 +1,6 @@
 ---
 - name: DISABLE SE LINUX
-  hosts: all
+  hosts: web
   gather_facts: no
   become: yes
   tags: disable-selinux
@@ -17,7 +17,7 @@
 
 
 - name: ENABLE SE LINUX
-  hosts: all
+  hosts: web
   gather_facts: no
   become: yes
   tags: enable-selinux

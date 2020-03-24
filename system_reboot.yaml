@@ -1,6 +1,6 @@
 ---
 - name: DEMONSTRATE THE REBOOT OF A SYSTEM
-  hosts: all
+  hosts: web
   gather_facts: no
   become: yes
 

@@ -1,6 +1,6 @@
 ---
 - name: Gather host facts
-  hosts: all
+  hosts: web
   become: yes
   
   tasks:
