@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script>
+$("document").ready(function(){
+  $click =  $('.expandclass');   // Click selector
+
+
+  $click.click(function () {
+
+    $clicked = $(this);
+    $expand = $(this).parent('.expand').next();  // Expand and collapse content selector
+
+        //open up the content needed - toggle the slide- if visible, slide up, if not slidedown.
+        $expand.slideToggle(500, function () {
+            //execute this after slideToggle is done
+            //change text of expand based on visibility of content div
+        });
+
+    });
+});
+</script>
+</head>
+<body>
+<center>
+<h1>Ansible Network Automation Example Report</h1>
+</center>
+<table>
+    <thead>
+        <tr>
+            <th>Hostname</th>
+            <th>Disk</th>
+            <th>Memory</th>
+            <th>Processors</th>
+            <th>SE Linux</th>
+        </tr>
+    </thead>
+    <tbody>
+      {% for server in groups['web']|sort %}
+        
+        <tr>
+          <td><p class="hostname">{{hostvars[server]['ansible_hostname']}}</p>
+          <td>Disk details</td>
+
+          <!–– INTERNAL TABLE FOR DISKS --!>
+          <div class="expand">
+            <p class="expandclass">>Disks - Click to see details</p>
+          </div>
+          <div class="content">
+            <table id="subtable">
+              <thead>
+                <tr>
+                  <th>Mount Point</th>
+                  <th>Device</th>
+                  <th>Total Size</th>
+                  <th>Total Available</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for mount in hostvars[server]['ansible_mounts'] %}
+                  <tr>
+                    <td>{{mount['mount']}}</td>
+                    <td>{{mount['device']|default("none")}}</td>
+                    <td>{{mount['size_total']|default("default")}}</td>
+                    <td>{{mount['size_available']}}</td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          <!–– END INTERNAL TABLE FOR DISKS --!>
+
+          <td>Memory details</td>
+
+          <!–– INTERNAL TABLE FOR MEMORY --!>
+          <div class="expand">
+            <p class="expandclass">>Disks - Click to see details</p>
+          </div>
+          <div class="content">
+            <table id="subtable">
+              <thead>
+                <tr>
+                  <th>Total Memory</th>
+                  <th>Available Memory</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>{{ansible_memtotal_mb}}</td>
+                  <td>{{ansible_memfree_mb |default("none")}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <!–– END INTERNAL TABLE FOR MEMORY --!>
+
+          <td>Processor Details </td>
+
+          <!–– INTERNAL TABLE FOR PROCESSORS --!>
+          <div class="expand">
+            <p class="expandclass">>Disks - Click to see details</p>
+          </div>
+          <div class="content">
+            <table id="subtable">
+              <thead>
+                <tr>
+                  <th>Cores</th>
+                  <th>Threads per core</th>
+                  <th>vCPUs</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>{{ansible_processor_cores}}</td>
+                  <td>{{ansible_processor_threads_per_core |default("none")}}</td>
+                  <td>{{ansible_process_vcpus}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <!–– END INTERNAL TABLE FOR PROCESSORS --!>
+    </tbody>
+    
+</table>
+<center><p>Created with</p><br><img src="webpage_logo.png" width="300">
+<p>The source code to create this report can be found at <a href="https://github.com/termlen0/linux-demos">https://github.com/termlen0/linux-demos</a></br><br>
+If you are new to Ansible Automation check out the following links:<br>
+<a href="https://docs.ansible.com/ansible/latest/user_guide/intro_getting_started.html">Getting Started</a"><br>
+<a href="https://ansible.com/workshops">Free hands-on workshops</a><br>
+<a href="https://youtube.com/ansibleautomation">Youtube Videos</a><br>
+</p>
+</center>
+
+</body>
+</html>
