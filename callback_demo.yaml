@@ -25,5 +25,6 @@
 
     - name: Disable SELinux
       selinux:
-        state: disabled
+        state: enforcing
+        policy: targeted
 
