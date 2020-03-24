@@ -10,7 +10,6 @@
 
 - name: build report with facts
   hosts: localhost
-  gather_facts: no
 
   tasks:
 
