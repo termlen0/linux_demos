@@ -23,7 +23,7 @@
   tags: enable-selinux
   tasks:
 
-    - name: Disable SELinux
+    - name: Enable SELinux
       selinux:
         state: enforcing
         policy: targeted
