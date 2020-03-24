@@ -9,8 +9,8 @@
         msg: "Facts gathered for {{ inventory_hostname }}"
 
 - name: build report with facts
-  hosts: localhost
-
+  hosts: ansible
+  
   tasks:
 
     - name: build a report
