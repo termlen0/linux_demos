@@ -2,15 +2,15 @@
 - name: Gather host facts
   hosts: web
   become: yes
-  
+
   tasks:
     - name: Report
       debug:
         msg: "Facts gathered for {{ inventory_hostname }}"
 
 - name: build report with facts
-  hosts: ansible
-  
+  hosts: ansible-1
+
   tasks:
 
     - name: build a report
