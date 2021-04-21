@@ -21,6 +21,11 @@
         test_command: ls
       register: output
 
+    - name: Open a ticket
+      debug:
+        msg: "Opening a ticket with ITSM..."
+      tags: open_ticket
+
 
 - name: Demo service - Test if service is up
   hosts: node1
