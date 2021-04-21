@@ -14,14 +14,12 @@
         name: httpd
         state: started
         enabled: no #Ensures that service does not automatically come up on reboot
+      tags: start_service
 
     - name: Reboot
       reboot:
         test_command: ls
       register: output
-
-    - name: Display test output
-      debug: var=output
 
 
 - name: Demo service - Test if service is up
