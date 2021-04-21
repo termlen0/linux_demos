@@ -1,0 +1,42 @@
+---
+- name: Demo service - Install and start
+  hosts: node1
+  become: yes
+  tags: play1
+  tasks:
+    - name: Install HTTPD
+      yum:
+        name: httpd
+        state: present
+
+    - name: Start HTTPD but not enable
+      service:
+        name: httpd
+        state: started
+        enabled: no #Ensures that service does not automatically come up on reboot
+
+    - name: Reboot
+      reboot:
+        test_command: ls
+      register: output
+
+    - name: Display test output
+      debug: var=output
+
+
+- name: Demo service - Test if service is up
+  hosts: node1
+  tags: play2
+  tasks:
+    - name: Test if service is up
+      service:
+        name: httpd
+        state: started
+        enabled: no
+      check_mode: yes
+      register: result
+
+    - name: Fail if service is not running
+      fail:
+        msg: The service is not running
+      when: result.changed #This is true if previous task indicates a change needed
