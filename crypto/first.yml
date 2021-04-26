@@ -1,0 +1,63 @@
+---
+- name: Test out the crypto collection
+  hosts: node1
+  vars:
+    cert_dir: "{{ lookup('env','TMPDIR') | default('/tmp',true)  }}"
+    cert_overwrite: no
+    cert_domain_cn: primary.foo
+
+  tasks:
+    - name: Generate an OpenSSL private key with the default values (4096 bits, RSA)
+      community.crypto.openssl_privatekey:
+        path: "{{cert_dir}}/{{cert_domain_cn}}.key"
+        force: "{{cert_overwrite}}"
+      register: cert_key
+
+    - name: Generate an OpenSSL Certificate Signing Request
+      community.crypto.openssl_csr:
+        path: "{{cert_dir}}/{{cert_domain_cn}}.csr"
+        privatekey_path: "{{cert_dir}}/{{cert_domain_cn}}.key"
+        key_usage:
+          - digitalSignature
+          - keyAgreement
+        extended_key_usage:
+          - clientAuth
+        common_name: "{{cert_domain_cn}}"
+        # at beginning of each string (^), put prefix 'DNS:'
+        #subject_alt_name: "{{ cert_domains_san | map('regex_replace', '^', 'DNS:') | list }}"
+        force: "{{cert_overwrite}}"
+      register: cert_csr
+
+    - name: Generate an OpenSSL certificate
+      community.crypto.x509_certificate:
+        path: "{{cert_dir}}/{{cert_domain_cn}}.crt"
+        privatekey_path: "{{cert_dir}}/{{cert_domain_cn}}.key"
+        csr_path: "{{cert_dir}}/{{cert_domain_cn}}.csr"
+        ownca_path: "{{ ca_crt.filename | default(omit) }}"
+        ownca_privatekey_path: "{{ ca_key.filename | default(omit) }}"
+        provider: "{{ cert_domain_ca is defined | ternary('ownca','selfsigned') }}"
+        force: "{{cert_overwrite}}"
+      register: cert_crt
+
+    - name: generate pkcs12 file
+      community.crypto.openssl_pkcs12:
+        action: export
+        path: "{{cert_dir}}/{{cert_domain_cn}}.p12"
+        friendly_name: "{{cert_domain_cn}}"
+        privatekey_path: "{{ cert_key.filename }}"
+        certificate_path: "{{ cert_crt.filename }}"
+        # was called 'ca_cerficates' before 2.8
+        other_certificates: "{{ ca_crt.filename | default(omit) }}"
+        force: "{{cert_overwrite}}"
+        state: present
+      register: cert_p12
+
+    - name: show cert
+      community.crypto.x509_certificate_info:
+        path: "{{cert_crt.filename}}"
+      register: cert_result
+    - debug:
+        msg: >
+          subject: {{cert_result.subject}}
+          issuer: {{cert_result.issuer}}
+          subject_alt_name: {{cert_result.subject_alt_name}}
