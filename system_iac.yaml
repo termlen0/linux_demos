@@ -1,4 +1,6 @@
 - hosts: all
   become: yes
-  roles:
-    - redhat.rhel-system-roles.timesync
+  tasks:
+    - name: Apply System Roles
+      include_role:
+        name: redhat.rhel_system_roles.timesync
