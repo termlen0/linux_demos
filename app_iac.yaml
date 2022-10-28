@@ -1,0 +1,4 @@
+- hosts: node3
+  become: yes
+  roles:
+    - role: geerlingguy.nginx
