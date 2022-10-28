@@ -1,4 +1,4 @@
 - hosts: all
   become: yes
-  system_roles:
-  - timesync
+  roles:
+    - rhel-system-roles.timesync
