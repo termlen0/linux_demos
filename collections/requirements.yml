@@ -2,3 +2,4 @@
 collections:
   - name: redhat.rhel_system_roles
     version: 1.16.2
+  - name: servicenow.servicenow
