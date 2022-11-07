@@ -1,0 +1,7 @@
+---
+- hosts: ansible-1
+  name: Rollback
+  tasks:
+    - name: "Rollback this step"
+      debug:
+        msg: "Rolling back this step"
