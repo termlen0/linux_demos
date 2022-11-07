@@ -1,4 +1,4 @@
 timesync_ntp_servers:
-  - hostname: au.pool.ntp.org
+  - hostname: us.pool.ntp.org
     pool: yes
     iburst: yes
