@@ -1,4 +1,4 @@
-- hosts: node3
+- hosts: node1
   become: yes
   vars:
     nginx_vhosts: 
