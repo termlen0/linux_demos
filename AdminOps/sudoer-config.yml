@@ -1,0 +1,19 @@
+---
+- name: Ensure that webadmins have passwordless sudo
+  hosts: node[1:3]
+  gather_facts: no
+  become: yes
+  tasks:
+      - name: Ensure that the sudoers file for webadmin
+        copy:
+          content: "%webadmin ALL=(ALL) NOPASSWD: ALL"
+          dest: /etc/sudoers.d/webadmin
+          mode: 0440
+        notify: restart sshd
+
+  handlers:
+    - name: restart sshd
+      service:
+        name: sshd
+        state: restarted
+u

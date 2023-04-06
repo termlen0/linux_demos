@@ -1,0 +1,36 @@
+---
+- name: Ensure that users and groups exist
+  hosts: node[1:3]
+  gather_facts: no
+  become: yes
+  vars:
+    users:
+      - username: user1
+        groups: webadmin
+      - username: user2
+        groups: webadmin
+      - username: user3
+        groups: proxyadmin
+      - username: user4
+        groups: dbadmin
+      - username: user5
+        groups: appadmin
+
+  tasks:
+    - name: Ensure the groups exist
+      group:
+        name: "{{ item.groups }}"
+        state: present
+      loop: "{{ users }}"
+
+    - name: Ensure that user accounts exist
+      user:
+        name: "{{ item.username }}"
+        groups: "{{ item.groups }}"
+      loop: "{{ users }}"
+
+    - name: Ensure that the Welcome message is present
+      copy:
+        contents: "Hello {{ item.username }}"
+        dest: "/home/{{ item.username }}/Welcome.txt"
+      loop: "{{ users }}"

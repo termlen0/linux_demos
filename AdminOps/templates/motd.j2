@@ -1,0 +1,7 @@
+Welcome to {{ inventory_hostname | upper }}
+Unauthorized access is not allowed
+Distribution: {{ ansible_facts['distribution'] }}
+Version: version {{ ansible_facts['distribution_version'] }}
+Processors: {{ ansible_processor_vcpus }}
+Memory Installed: {{ (ansible_memtotal_mb / 1024) | round(1) }}GB
+Memory Swapfile: {{ (ansible_swaptotal_mb / 1024) | round(1) }}GB

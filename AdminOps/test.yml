@@ -1,0 +1,10 @@
+---
+- name: Ensure that the MOTD is configured
+  hosts: localhost
+  become: yes
+  tasks:
+    - name: Ensure the correct MOTD exists
+      template:
+        src: motd.j2
+        dest: ./motd
+      delegate_to: localhost

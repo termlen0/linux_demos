@@ -1,0 +1,11 @@
+---
+- name: Disable root SSH
+  hosts: node[1:3]
+  gather_facts: no
+  become: yes
+  tasks:
+      - name: Ensure that root login via SSH is not permitted
+        lineinfile:
+          dest: /etc/ssh/sshd_config
+          regexp: "^PermitRootLogin"
+          line: "PermitRootLogin no"

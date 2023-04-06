@@ -1,0 +1,23 @@
+---
+- name: Install packages and start services on nodes
+  hosts: node2, node3
+  become: yes
+  gather_facts: no
+  vars:
+    packages:
+      - firewalld
+      - httpd
+    services:
+      - firewalld
+      - httpd
+  tasks:
+    - name: Install Packages
+      package:
+        name: "{{ packages }}"
+        state: latest
+    - name: Start the services
+      service:
+        name: "{{ item }}"
+        state: started
+        enabled: yes
+      with_items: "{{ services }}"
